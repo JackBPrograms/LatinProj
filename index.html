@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      canvas {
+        width: 75%;
+        height: auto;
+        image-rendering: pixelated;
+        position: absolute;
+        top: 50%;
+        right: 50%;
+        transform: translate(50%, -50%);
+      }
+
+      body {
+        background-color: #111;
+      }
+    </style>
+  </head>
+  <body>
+    <!--Background-->
+    <img src="/img/backgrounds/back.png" id="background" hidden />
+    <!--Sprites-->
+    <img src="/img/Caesar/idle/sprite_0.png" id="c-i-0" hidden />
+    <img src="/img/Caesar/idle/sprite_1.png" id="c-i-1" hidden />
+    <img src="/img/Caesar/idle/sprite_2.png" id="c-i-2" hidden />
+    <img src="/img/Caesar/idle/sprite_3.png" id="c-i-3" hidden />
+    <img src="/img/Caesar/idle/sprite_4.png" id="c-i-4" hidden />
+    <img src="/img/Caesar/idle/sprite_5.png" id="c-i-5" hidden />
+    <img src="/img/Caesar/idle/sprite_6.png" id="c-i-6" hidden />
+    <img src="/img/Caesar/idle/sprite_7.png" id="c-i-7" hidden />
+
+    <canvas id="myCanvas" width="192" height="96"></canvas>
+    <img src="/img/boi.png" hidden id="boi1" />
+    <script src="./js/ticks.js"></script>
+    <script src="./js/graphics.js"></script>
+  </body>
+</html>
