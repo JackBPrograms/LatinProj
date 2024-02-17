@@ -15,11 +15,18 @@ function frame() {
   }
 
   ctx.fillStyle = "#FF0000";
-  ctx.drawImage(player2.sprite, player2.x + 96 - 16 + offx, 70 - 16, 32, 32);
+  ctx.save();
+  ctx.translate(player2.x + 96 + offx, 70 - 16);
+  ctx.scale(1, 1);
+  ctx.rotate(player2.rot);
+  ctx.drawImage(player2.sprite, 0, 0, 32, 32);
+  ctx.restore();
 
   ctx.fillStyle = "#0000FF";
   ctx.save();
-  ctx.translate(player1.x + 96 + 16 + offx, 70 - 16);
+  ctx.translate(player1.x + 96, 54 + 16);
+  ctx.rotate(player1.rot / 57.2958);
+  ctx.translate(16, -16);
   ctx.scale(-1, 1);
   ctx.drawImage(player1.sprite, 0, 0, 32, 32);
   ctx.restore();
