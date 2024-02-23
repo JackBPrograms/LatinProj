@@ -20,6 +20,9 @@
   <body>
     <!--Background-->
     <img src="/img/backgrounds/back.png" id="background" hidden />
+    <img src="/img/backgrounds/Vici Start Screen.png" id="start" hidden/>
+    <img src="/img/backgrounds/Vici-B.png" id="vb" hidden/>
+    <img src="/img/backgrounds/Vici-C.png" id="vc" hidden/>
     <!--Sprites (idle)-->
     <img src="/img/Caesar/idle/sprite_0.png" id="c-i-0" hidden />
     <img src="/img/Caesar/idle/sprite_1.png" id="c-i-1" hidden />
@@ -82,10 +85,25 @@
   <img src="img/Caesar/point/sprite_15.png" id="c-u-15" hidden>
   <img src="img/Caesar/point/sprite_16.png" id="c-u-16" hidden>
   <img src="img/Caesar/point/sprite_17.png" id="c-u-17" hidden>
-
+    <p style="color: #fff;" id="dist">15px</p>
     <canvas id="myCanvas" width="192" height="96"></canvas>
     <img src="/img/boi.png" hidden id="boi1" />
     <script src="./js/ticks.js"></script>
     <script src="./js/graphics.js"></script>
+
+    <script>
+      var audio = new Audio("/img/music_vibes.mp3");
+
+      audio.oncanplaythrough = function(){
+      audio.play();
+      }
+
+      audio.loop = true;
+
+      audio.onended = function(){
+      audio.play();
+      }
+
+    </script>
   </body>
 </html>

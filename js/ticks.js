@@ -3,6 +3,10 @@ var ctx = canvas.getContext("2d");
 
 let gamepads = {};
 
+let winner = false;
+let brutWin = false;
+
+let particals = [];
 
 let ceaIdle = [
   document.getElementById("c-i-0"),
@@ -25,13 +29,13 @@ let caeWalk = [
 ];
 
 let caeSlash = [
-  /* document.getElementById("c-s-0"),
+  document.getElementById("c-s-0"),
   document.getElementById("c-s-1"),
   document.getElementById("c-s-2"),
   document.getElementById("c-s-3"),
-  document.getElementById("c-s-4"),*/
+  document.getElementById("c-s-4"),
   document.getElementById("c-s-5"),
-  //document.getElementById("c-s-6"),
+  document.getElementById("c-s-6"),
   document.getElementById("c-s-7"),
   //document.getElementById("c-s-8"),
   document.getElementById("c-s-9"),
@@ -105,23 +109,23 @@ setTimeout(() => {
   ];
 
   bruSlash = [
-    //hueShiftImage(caeSlash[0], 30),
-    //hueShiftImage(caeSlash[1], 30),
-    //hueShiftImage(caeSlash[2], 30),
-    //hueShiftImage(caeSlash[3], 30),
-    //hueShiftImage(caeSlash[4], 30),
     hueShiftImage(caeSlash[0], 30),
-    //hueShiftImage(caeSlash[6], 30),
     hueShiftImage(caeSlash[1], 30),
-    //hueShiftImage(caeSlash[8], 30),
     hueShiftImage(caeSlash[2], 30),
-    //hueShiftImage(caeSlash[10], 30),
     hueShiftImage(caeSlash[3], 30),
-    //hueShiftImage(caeSlash[12], 30),
     hueShiftImage(caeSlash[4], 30),
-    //hueShiftImage(caeSlash[14], 30),
     hueShiftImage(caeSlash[5], 30),
     hueShiftImage(caeSlash[6], 30),
+    hueShiftImage(caeSlash[7], 30),
+    //hueShiftImage(caeSlash[8], 30),
+    hueShiftImage(caeSlash[8], 30),
+    //hueShiftImage(caeSlash[10], 30),
+    hueShiftImage(caeSlash[9], 30),
+    //hueShiftImage(caeSlash[12], 30),
+    hueShiftImage(caeSlash[10], 30),
+    //hueShiftImage(caeSlash[14], 30),
+    hueShiftImage(caeSlash[11], 30),
+    hueShiftImage(caeSlash[12], 30),
   ];
 
   bruPunch = [
@@ -165,141 +169,347 @@ let animationTick = 0;
 
 function tick() {
   try {
-    //console.log(gamepads[0]);
-    if (gamepads[0].axes[2] > 0.5 || gamepads[0].axes[0] > 0.5) {
-      player1.x += 1;
-      //player1.rot += 5;
-      player1.flip = 1;
-      player1.a = 1;
-    } else if (gamepads[0].axes[2] < -0.5 || gamepads[0].axes[0] < -0.5) {
-      player1.x -= 1;
-      //player1.rot -= 5;
-      player1.flip = -1;
-      player1.a = 1;
-    } else if (gamepads[0].buttons[0].value > 0.5) {
-      player1.a = 3;
-      //player1.af = 0;
-    } else if (gamepads[0].buttons[2].value > 0.5) {
-      player1.a = 2;
-      //player1.af = 0;
-    } else {
-      player1.a = 0;
+    try {
+      //console.log(gamepads[0]);
+      if (gamepads[0].axes[2] > 0.5 || gamepads[0].axes[0] > 0.5) {
+        player1.x += 1;
+        //player1.rot += 5;
+        player1.flip = 1;
+        player1.a = 1;
+      } else if (gamepads[0].axes[2] < -0.5 || gamepads[0].axes[0] < -0.5) {
+        player1.x -= 1;
+        //player1.rot -= 5;
+        player1.flip = -1;
+        player1.a = 1;
+      } else if (gamepads[0].buttons[0].value > 0.5) {
+        player1.a = 3;
+        //player1.af = 0;
+      } else if (gamepads[0].buttons[2].value > 0.5) {
+        player1.a = 2;
+        //player1.af = 0;
+      } else {
+        player1.a = 0;
+      }
+
+      //console.log(gamepads[0]);
+      if (gamepads[1].axes[2] > 0.5 || gamepads[1].axes[0] > 0.5) {
+        player2.x += 1;
+        //player2.rot += 5;
+        player2.flip = 1;
+        player2.a = 1;
+      } else if (gamepads[1].axes[2] < -0.5 || gamepads[1].axes[0] < -0.5) {
+        player2.x -= 1;
+        //player2.rot -= 5;
+        player2.flip = -1;
+        player2.a = 1;
+      } else if (gamepads[1].buttons[0].value > 0.5) {
+        player2.a = 3;
+        //player2.af = 0;
+      } else if (gamepads[1].buttons[2].value > 0.5) {
+        player2.a = 2;
+        //player2.af = 0;
+      } else {
+        player2.a = 0;
+      }
+
+      //console.log(player1.a);
+    } catch (error) {
+      console.log(error);
     }
 
-    //console.log(gamepads[0]);
-    if (gamepads[1].axes[2] > 0.5 || gamepads[1].axes[0] > 0.5) {
-      player2.x += 1;
-      //player2.rot += 5;
-      player2.flip = 1;
-      player2.a = 1;
-    } else if (gamepads[1].axes[2] < -0.5 || gamepads[1].axes[0] < -0.5) {
-      player2.x -= 1;
-      //player2.rot -= 5;
-      player2.flip = -1;
-      player2.a = 1;
-    } else if (gamepads[1].buttons[0].value > 0.5) {
-      player2.a = 3;
-      //player2.af = 0;
-    } else if (gamepads[1].buttons[2].value > 0.5) {
-      player2.a = 2;
-      //player2.af = 0;
-    } else {
-      player2.a = 0;
+    if (animationTick % 4 == 0) {
+      if (player1.a == 0) {
+        if (player1.af >= bruIdle.length) {
+          player1.af = 0;
+        }
+        player1.sprite = bruIdle[player1.af];
+        player1.af++;
+      }
+
+      if (player1.a == 1) {
+        if (player1.af >= bruWalk.length) {
+          player1.af = 0;
+        }
+        player1.sprite = bruWalk[player1.af];
+        player1.af++;
+      }
+
+      if (player1.a == 2) {
+        if (player1.af >= bruSlash.length) {
+          player1.af = 0;
+        }
+        player1.sprite = bruSlash[player1.af];
+        player1.af++;
+      }
+
+      if (player1.a == 3) {
+        if (player1.af >= bruPunch.length) {
+          player1.af = 0;
+        }
+        player1.sprite = bruPunch[player1.af];
+        player1.af++;
+      }
+
+      if (player2.a == 0) {
+        if (player2.af >= ceaIdle.length) {
+          player2.af = 0;
+        }
+        player2.sprite = ceaIdle[player2.af];
+        player2.af++;
+      }
+
+      if (player2.a == 1) {
+        if (player2.af >= caeWalk.length) {
+          player2.af = 0;
+        }
+        player2.sprite = caeWalk[player2.af];
+        player2.af++;
+      }
+
+      if (player2.a == 2) {
+        if (player2.af >= caeSlash.length) {
+          player2.af = 0;
+        }
+        player2.sprite = caeSlash[player2.af];
+        player2.af++;
+      }
+
+      if (player2.a == 3) {
+        if (player2.af >= caePunch.length) {
+          player2.af = 0;
+        }
+        player2.sprite = caePunch[player2.af];
+        player2.af++;
+      }
+
+      let rangeFix = 0;
+
+      if (player1.flip == player2.flip) {
+        rangeFix = 4;
+      }
+
+      if (
+        player1.a == 3 &&
+        player1.af == 4 &&
+        Math.abs(player1.x - player2.x) < 20 + rangeFix
+      ) {
+        console.log("Player one hit player two");
+        player2.health -= 8;
+        player2.x -= 3;
+
+        if (player1.flip == 1) {
+          player2.x += 6;
+          //console.log(2);
+        }
+
+        for (let i = 0; i < 10; i++) {
+          particals.push({
+            x: 96 + player2.x,
+            y: 68,
+            vx: Math.random() * 4 - 2,
+            vy: Math.random() * 4 - 2,
+            life: 18,
+          });
+        }
+
+        //call the gamepad to vibrate
+
+        navigator.getGamepads()[0].vibrationActuator.playEffect("dual-rumble", {
+          startDelay: 0,
+          duration: 200,
+          weakMagnitude: 1.0,
+          strongMagnitude: 0.0,
+        });
+
+        navigator.getGamepads()[1].vibrationActuator.playEffect("dual-rumble", {
+          startDelay: 0,
+          duration: 200,
+          weakMagnitude: 1.0,
+          strongMagnitude: 1.0,
+        });
+      }
+
+      if (
+        player2.a == 3 &&
+        player2.af == 4 &&
+        Math.abs(player1.x - player2.x) < 20 + rangeFix
+      ) {
+        console.log("Player two hit player one");
+        player1.health -= 8;
+        player1.x += 3;
+
+        if (player2.flip != 1) {
+          player1.x -= 6;
+          //console.log(2);
+        }
+
+        for (let i = 0; i < 10; i++) {
+          particals.push({
+            x: 96 + player1.x,
+            y: 68,
+            vx: Math.random() * 4 - 2,
+            vy: Math.random() * 4 - 2,
+            life: 18,
+          });
+        }
+
+        //gamepads[0].vibrate(1, 100);
+        navigator.getGamepads()[0].vibrationActuator.playEffect("dual-rumble", {
+          startDelay: 0,
+          duration: 200,
+          weakMagnitude: 1.0,
+          strongMagnitude: 1.0,
+        });
+
+        navigator.getGamepads()[1].vibrationActuator.playEffect("dual-rumble", {
+          startDelay: 0,
+          duration: 200,
+          weakMagnitude: 1.0,
+          strongMagnitude: 0.0,
+        });
+      }
+
+      if (
+        player1.a == 2 &&
+        player1.af == 9 &&
+        Math.abs(player1.x - player2.x) < 24 + rangeFix
+      ) {
+        console.log("Player one hit player two");
+        player2.health -= 8;
+        player2.x -= 1;
+
+        if (player1.flip == 1) {
+          player2.x += 2;
+          //console.log(2);
+        }
+
+        for (let i = 0; i < 10; i++) {
+          particals.push({
+            x: 96 + player2.x,
+            y: 68,
+            vx: Math.random() * 4 - 2,
+            vy: Math.random() * 4 - 2,
+            life: 18,
+          });
+        }
+
+        //call the gamepad to vibrate
+
+        navigator.getGamepads()[0].vibrationActuator.playEffect("dual-rumble", {
+          startDelay: 0,
+          duration: 200,
+          weakMagnitude: 1.0,
+          strongMagnitude: 0.0,
+        });
+
+        navigator.getGamepads()[1].vibrationActuator.playEffect("dual-rumble", {
+          startDelay: 0,
+          duration: 200,
+          weakMagnitude: 1.0,
+          strongMagnitude: 1.0,
+        });
+      }
+
+      if (
+        player2.a == 2 &&
+        player2.af == 9 &&
+        Math.abs(player1.x - player2.x) < 24 + rangeFix
+      ) {
+        console.log("Player two hit player one");
+        player1.health -= 8;
+        player1.x += 1;
+
+        if (player2.flip != 1) {
+          player1.x -= 2;
+          //console.log(2);
+        }
+
+        for (let i = 0; i < 10; i++) {
+          particals.push({
+            x: 96 + player1.x,
+            y: 68,
+            vx: Math.random() * 4 - 2,
+            vy: Math.random() * 4 - 2,
+            life: 18,
+          });
+        }
+
+        //gamepads[0].vibrate(1, 100);
+        navigator.getGamepads()[0].vibrationActuator.playEffect("dual-rumble", {
+          startDelay: 0,
+          duration: 200,
+          weakMagnitude: 1.0,
+          strongMagnitude: 1.0,
+        });
+
+        navigator.getGamepads()[1].vibrationActuator.playEffect("dual-rumble", {
+          startDelay: 0,
+          duration: 200,
+          weakMagnitude: 1.0,
+          strongMagnitude: 0.0,
+        });
+      }
+
+      particals.forEach((part) => {
+        part.x += part.vx;
+        part.y += part.vy;
+
+        part.vx *= 0.9;
+        part.vy *= 0.9;
+
+        part.vy += 0.1;
+
+        part.life -= 1;
+        if (part.life < 0) {
+          particals.splice(particals.indexOf(part), 1);
+        }
+      });
     }
 
-    //console.log(player1.a);
-  } catch (error) {
-    console.log(error);
+    if (player1.health <= 0 && !winner) {
+      brutWin = true;
+      winner = true;
+    }
+
+    if (player2.health <= 0 && !winner) {
+      brutWin = false;
+      winner = true;
+    }
+
+    if (winner) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 5000);
+    }
+
+    if (animationTick % 8 == 0) {
+      if (offx > 0) {
+        offx -= 1;
+      } else if (offx < 0) {
+        offx += 1;
+      }
+      offx = 0;
+    }
+
+    animationTick++;
+    if (animationTick > 12) {
+      animationTick = 0;
+    }
+
+    try {
+      gamepads[0] = navigator.getGamepads()[0];
+      gamepads[1] = navigator.getGamepads()[1];
+    } catch (error) {
+      console.warn(error);
+    }
+
+    document.getElementById("dist").innerHTML = "";
+  } catch (e) {
+    document.getElementById("dist").innerHTML =
+      "Error, Attempting to avoid crash.";
   }
 
-  if (animationTick % 4 == 0) {
-    if (player1.a == 0) {
-      if (player1.af >= bruIdle.length) {
-        player1.af = 0;
-      }
-      player1.sprite = bruIdle[player1.af];
-      player1.af++;
-    }
-
-    if (player1.a == 1) {
-      if (player1.af >= bruWalk.length) {
-        player1.af = 0;
-      }
-      player1.sprite = bruWalk[player1.af];
-      player1.af++;
-    }
-
-    if (player1.a == 2) {
-      if (player1.af >= bruSlash.length) {
-        player1.af = 0;
-      }
-      player1.sprite = bruSlash[player1.af];
-      player1.af++;
-    }
-
-    if (player1.a == 3) {
-      if (player1.af >= bruPunch.length) {
-        player1.af = 0;
-      }
-      player1.sprite = bruPunch[player1.af];
-      player1.af++;
-    }
-
-    if (player2.a == 0) {
-      if (player2.af >= ceaIdle.length) {
-        player2.af = 0;
-      }
-      player2.sprite = ceaIdle[player2.af];
-      player2.af++;
-    }
-
-    if (player2.a == 1) {
-      if (player2.af >= caeWalk.length) {
-        player2.af = 0;
-      }
-      player2.sprite = caeWalk[player2.af];
-      player2.af++;
-    }
-
-    if (player2.a == 2) {
-      if (player2.af >= caeSlash.length) {
-        player2.af = 0;
-      }
-      player2.sprite = caeSlash[player2.af];
-      player2.af++;
-    }
-
-    if (player2.a == 3) {
-      if (player2.af >= caePunch.length) {
-        player2.af = 0;
-      }
-      player2.sprite = caePunch[player2.af];
-      player2.af++;
-    }
-  }
-
-  if (animationTick % 8 == 0) {
-    if (offx > 0) {
-      offx -= 1;
-    } else if (offx < 0) {
-      offx += 1;
-    }
-    offx = 0;
-  }
-
-  animationTick++;
-  if (animationTick > 12) {
-    animationTick = 0;
-  }
-
-  try {
-    gamepads[0] = navigator.getGamepads()[0];
-    gamepads[1] = navigator.getGamepads()[1];
-  } catch (error) {
-    console.warn(error);
-  }
-
-  setTimeout(tick, 1000 / 24);
+  setTimeout(tick, 1000 / 48);
 }
 
 function gamepadHandler(event, connected) {
