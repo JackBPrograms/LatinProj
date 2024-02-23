@@ -3,7 +3,7 @@
   <head>
     <style>
       canvas {
-        width: 75%;
+        width: 85%;
         height: auto;
         image-rendering: pixelated;
         position: absolute;
@@ -103,6 +103,24 @@
       audio.onended = function(){
       audio.play();
       }
+
+      let wakeLock = null;
+
+
+        const requestWakeLock = async () => {
+          try {
+            wakeLock = await navigator.wakeLock.request();
+            wakeLock.addEventListener('release', () => {
+              console.log('Screen Wake Lock released:', wakeLock.released);
+            });
+            console.log('Screen Wake Lock released:', wakeLock.released);
+          } catch (err) {
+            console.error(`${err.name}, ${err.message}`);
+          }
+        };
+
+        // Request a screen wake lock…
+         requestWakeLock();
 
     </script>
   </body>
